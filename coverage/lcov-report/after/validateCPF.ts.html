@@ -120,9 +120,7 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -139,7 +137,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -149,7 +146,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
@@ -183,62 +179,60 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
 // @ts-nocheck
-export function validateCPF (cpf) {
-	if (cpf) {
+export function validateCPF(cpf) {
+    if (cpf) {
 &nbsp;
-        function clearCPF(){
-            return cpf.replace('.','').replace('.','').replace('-','').replace(" ","");  
+        function clearCPF() {
+            return cpf.replace('.', '').replace('.', '').replace('-', '').replace(" ", "");
         }
 &nbsp;
-        function isEqualCharacters(){
+        function isEqualCharacters() {
             return cpf.split("").every(c =&gt; c === cpf[0]);
         }
 &nbsp;
-        if (cpf.length &gt;= 11 &amp;&amp; cpf.length &lt;= 14){
+        if (cpf.length &gt;= 11 &amp;&amp; cpf.length &lt;= 14) {
             cpf = clearCPF();
             if (!isEqualCharacters()) {
-                try{  
-&nbsp;
+                try {
                     let firstSum = 0; //d1
                     let secondSum = 0; //d2
                     let firstDigit = 0; //dg1
-                    let secondDigit =0; //dg2
-                    let rest = 0;  
+                    let secondDigit = 0; //dg2
+                    let rest = 0;
                     let digits;
-                    let digitsResult;  
-                                        
-                    for (let nCount = 1; nCount &lt; cpf.length -1; nCount++) {
+                    let digitsResult;
 &nbsp;
-                        digits = parseInt(cpf.substring(nCount -1, nCount));  							
-                        firstSum = firstSum + ( 11 - nCount ) * digits;  
-                        secondSum = secondSum + ( 12 - nCount ) * digits;  
-                        };  
-                            
-                        rest = (firstSum % 11);  
-                
-                        firstDigit = (rest &lt; 2) ? firstDigit = 0 : 11 - rest;  
-                        secondSum += 2 * firstDigit;  
-                        rest = (secondSum % 11);  
-                        if (rest &lt; 2)  
-                            secondDigit = 0;  
-                        else  
-                            secondDigit = 11 - rest;  
-                
-                        let nDigVerific = cpf.substring(cpf.length-2, cpf.length);  
-                        digitsResult = "" + firstDigit + "" + secondDigit;  
-                        return nDigVerific == digitsResult;
-                    }catch (e){  
-<span class="cstat-no" title="statement not covered" >                        console.error("Erro !"+e);  </span>
-    
-<span class="cstat-no" title="statement not covered" >                        return false;  </span>
-                    }  
-                } else return false
-    
-            }else return false;
-        
+                    for (let counter = 1; counter &lt; cpf.length - 1; counter++) {
+                        digits = parseInt(cpf.substring(counter - 1, counter));
+                        firstSum = firstSum + (11 - counter) * digits;
+                        secondSum = secondSum + (12 - counter) * digits;
+                    };
+&nbsp;
+                    rest = (firstSum % 11);
+&nbsp;
+                    firstDigit = (rest &lt; 2) ? firstDigit = 0 : 11 - rest;
+                    secondSum += 2 * firstDigit;
+                    rest = (secondSum % 11);
+                    if (rest &lt; 2)
+                        secondDigit = 0;
+                    else
+                        secondDigit = 11 - rest;
+&nbsp;
+                    let nDigVerific = cpf.substring(cpf.length - 2, cpf.length);
+                    digitsResult = "" + firstDigit + "" + secondDigit;
+                    return nDigVerific == digitsResult;
+                } catch (e) {
+<span class="cstat-no" title="statement not covered" >                    console.error("Erro !" + e);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                    return false;</span>
+                }
+            } else return false
+&nbsp;
+        } else return false;
 &nbsp;
 &nbsp;
-	} else return false;
+&nbsp;
+    } else return false;
 &nbsp;
 }</pre></td></tr></table></pre>
 
@@ -247,7 +241,7 @@ export function validateCPF (cpf) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-19T18:18:08.095Z
+                at 2024-03-20T16:58:48.054Z
             </div>
         <script src="../prettify.js"></script>
         <script>

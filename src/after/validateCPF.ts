@@ -1,59 +1,32 @@
-
-// @ts-nocheck
-export function validateCPF(cpf) {
-    if (cpf) {
-
-        function clearCPF() {
-            return cpf.replace('.', '').replace('.', '').replace('-', '').replace(" ", "");
-        }
-
-        function isEqualCharacters() {
-            return cpf.split("").every(c => c === cpf[0]);
-        }
-
-        if (cpf.length >= 11 && cpf.length <= 14) {
-            cpf = clearCPF();
-            if (!isEqualCharacters()) {
-                try {
-                    let firstSum = 0; //d1
-                    let secondSum = 0; //d2
-                    let firstDigit = 0; //dg1
-                    let secondDigit = 0; //dg2
-                    let rest = 0;
-                    let digits;
-                    let digitsResult;
-
-                    for (let nCount = 1; nCount < cpf.length - 1; nCount++) {
-
-                        digits = parseInt(cpf.substring(nCount - 1, nCount));
-                        firstSum = firstSum + (11 - nCount) * digits;
-                        secondSum = secondSum + (12 - nCount) * digits;
-                    };
-
-                    rest = (firstSum % 11);
-
-                    firstDigit = (rest < 2) ? firstDigit = 0 : 11 - rest;
-                    secondSum += 2 * firstDigit;
-                    rest = (secondSum % 11);
-                    if (rest < 2)
-                        secondDigit = 0;
-                    else
-                        secondDigit = 11 - rest;
-
-                    let nDigVerific = cpf.substring(cpf.length - 2, cpf.length);
-                    digitsResult = "" + firstDigit + "" + secondDigit;
-                    return nDigVerific == digitsResult;
-                } catch (e) {
-                    console.error("Erro !" + e);
-
-                    return false;
-                }
-            } else return false
-
-        } else return false;
-
-
-
-    } else return false;
-
+function hasAllDigitsEqual(cpf:string) {
+    const [firstDigit] = cpf
+    return cpf.split("").every(digit => digit === firstDigit)
+}
+function cleanCPF(cpf:string) {
+    return cpf.replace(/\D/g, "")
+}
+function isValidLength(cpf:string) {
+    return cpf.length === 11
+}
+function extractDigit(cpf:string) {
+    return cpf.slice(9)
+}
+function calculateDigit(cpf:any, factor:number){
+    let total = 0;
+    for (const digit of cpf){
+        if (factor > 1) total += digit * factor--;
+    }
+    const rest = total % 11;
+    return (rest < 2) ? 0 : 11 - rest
+}
+export function validateCPF(cpf:string) {
+    if (!cpf) return false
+    cpf = cleanCPF(cpf);
+    if (!isValidLength(cpf)) return false
+    if (hasAllDigitsEqual(cpf)) return false
+    const digitOne = calculateDigit(cpf, 10)
+    const digitTwo = calculateDigit(cpf, 11)
+    const checkDigit = extractDigit(cpf);
+    const calculatedDigit = `${digitOne}${digitTwo}`;
+    return checkDigit == calculatedDigit;
 }
