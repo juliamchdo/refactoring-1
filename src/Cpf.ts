@@ -1,6 +1,6 @@
 export default class Cpf{
     constructor(readonly value: string){
-        if(!this.validateCPF(value)) throw new Error("Cpf invalido")
+        if(!this.validateCPF(value)) throw new Error("CPF invalido")
         this.value = value
     }
 
