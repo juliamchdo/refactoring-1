@@ -17,6 +17,7 @@ export class Order {
     }
 
     addCoupon(coupon: Coupon){
+        coupon.isCuponExpired()
         this.coupon = coupon
     }
    

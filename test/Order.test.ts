@@ -17,9 +17,15 @@ test("Deve criar um pedido com 3 itens", function(){
 
 test("Deve criar um pedido com cupom", function(){
     const order = new Order("496.845.150-49")
+    const expired = new Date(2024, 5, 1)
     order.addItem(new Item(1, "Monitor", 3000), 1)
-    order.addCoupon(new Coupon("VALE20", 20))
+    order.addCoupon(new Coupon("VALE20", 20, expired))
     const total = order.getTotal()
     expect(total).toBe(2400)
+ })
+
+ test("Nao deve criar um pedido com cupom expirado", function(){
+    const expiredCoupon = new Coupon("VALE20", 20, new Date(2022, 1, 1))
+    expect(() => expiredCoupon.isCuponExpired()).toThrow(new Error ("Cupom inválido"))
  })
  
