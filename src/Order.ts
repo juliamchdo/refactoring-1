@@ -13,6 +13,9 @@ export class Order {
     }
 
     addItem(item: Item, quantity: number){
+        if(quantity < 0){
+            throw new Error ("É necessário adicionar ao menos 1 item.")
+        } 
         this.orderItens.push(new OrderItem(item.idItem, item.price, quantity))
     }
 
